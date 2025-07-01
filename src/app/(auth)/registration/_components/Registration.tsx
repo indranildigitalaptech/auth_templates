@@ -8,9 +8,15 @@ const Registration = () => {
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Registration
         </h1>
+        <p className="text-green-700 text-center my-2">
+          Registration successful
+        </p>
         <form className="space-y-4">
           <div>
-            <label htmlFor="fname" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="fname"
+              className="block text-sm font-medium text-gray-700"
+            >
               First Name
             </label>
             <input
@@ -20,10 +26,14 @@ const Registration = () => {
               required
               className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid input</p>
           </div>
 
           <div>
-            <label htmlFor="lname" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="lname"
+              className="block text-sm font-medium text-gray-700"
+            >
               Last Name
             </label>
             <input
@@ -33,10 +43,14 @@ const Registration = () => {
               required
               className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid input</p>
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -46,44 +60,57 @@ const Registration = () => {
               required
               className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="w-1/3">
-              <label htmlFor="ccode" className="block text-sm font-medium text-gray-700">
-                Country Code
-              </label>
-              <div className="flex items-center gap-2">
-                <Image
-                  src="/assets/uk_flag.png"
-                  alt="UK Flag"
-                  width={30}
-                  height={20}
-                  className="rounded"
-                />
-                <select className="w-full border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="uk">+44</option>
-                  <option value="zim">+263</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="w-2/3">
-              <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                name="mobile"
-                placeholder="Mobile Number"
-                required
-                className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <p className="text-right text-red-500">Invalid input</p>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <div className="flex items-center gap-4">
+              <div className="w-1/3">
+                <label
+                  htmlFor="ccode"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Country Code
+                </label>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/assets/uk_flag.png"
+                    alt="UK Flag"
+                    width={30}
+                    height={20}
+                    className="rounded"
+                  />
+                  <select className="w-full border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="uk">+44</option>
+                    <option value="zim">+263</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="w-2/3">
+                <label
+                  htmlFor="mobile"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Mobile Number
+                </label>
+                <input
+                  type="tel"
+                  name="mobile"
+                  placeholder="Mobile Number"
+                  required
+                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+            <p className="text-right text-red-500">Invalid input</p>
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -93,10 +120,14 @@ const Registration = () => {
               required
               className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid input</p>
           </div>
 
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="confirm-password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Confirm Password
             </label>
             <input
@@ -106,6 +137,7 @@ const Registration = () => {
               required
               className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid input</p>
           </div>
 
           <button

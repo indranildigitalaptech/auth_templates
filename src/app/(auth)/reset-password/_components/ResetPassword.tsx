@@ -8,6 +8,7 @@ const ResetPassword = () => {
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Reset Password</h1>
         
+        <p className="text-center text-green-700 my-2">Reset Password Successful</p>
         <form className="space-y-5">
           {/* New Password */}
           <div>
@@ -21,6 +22,7 @@ const ResetPassword = () => {
               required
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid Input</p>
           </div>
 
           {/* Confirm Password */}
@@ -35,6 +37,7 @@ const ResetPassword = () => {
               required
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-right text-red-500">Invalid Input</p>
           </div>
 
           {/* Submit Button */}

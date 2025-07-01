@@ -29,6 +29,9 @@ const OtpVerification = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg text-center">
         <h1 className="text-2xl font-bold mb-2">OTP Verification</h1>
+
+        <p className="text-red-500 my-2">Failed to verify OTP</p>
+
         <p className="text-sm text-gray-600 mb-6">
           One Time Password (OTP) has been sent via Email to{" "}
           <span className="font-medium text-gray-800">example@gmail.com</span>
