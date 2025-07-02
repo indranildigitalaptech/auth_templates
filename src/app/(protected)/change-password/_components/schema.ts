@@ -19,6 +19,11 @@ export const schema = yup.object().shape({
       'has-special',
       'Current password must include at least one special character (@$!%*#?&^)',
       (val) => /[@$!%*#?&^]/.test(val || '')
+    )
+    .test(
+      "no-spaces",
+      "Password must not contain spaces",
+      (value) => !/\s/.test(value || "")
     ),
 
   newPassword: yup
@@ -39,6 +44,11 @@ export const schema = yup.object().shape({
       'has-special',
       'New password must include at least one special character (@$!%*#?&^)',
       (val) => /[@$!%*#?&^]/.test(val || '')
+    )
+    .test(
+      "no-spaces",
+      "Password must not contain spaces",
+      (value) => !/\s/.test(value || "")
     ),
 
   confirmPassword: yup
