@@ -5,21 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,}$/,
-      "Password must include letters, numbers, and special characters"
-    )
-    .required("Password is required"),
-});
+import { schema } from "./schema";
 
 const Login = () => {
   const router = useRouter();
@@ -46,9 +32,11 @@ const Login = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
 
         {/* Success message placeholder */}
-        { isSubmitted && <p className="text-center text-green-700 my-2">
-          Login Successful redirecting to home page...
-        </p>}
+        {isSubmitted && (
+          <p className="text-center text-green-700 my-2">
+            Login Successful redirecting to home page...
+          </p>
+        )}
 
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}

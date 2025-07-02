@@ -2,15 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useState } from "react";
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+import { schema } from "./schema";
 
 const ForgotPassword = () => {
   const [isSubmited, setIsSubmited] = useState(false);
@@ -35,12 +28,21 @@ const ForgotPassword = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Forgot Password</h1>
 
         {/* Success message (placeholder) */}
-        {isSubmited && <p className="text-green-700 text-center">Otp sent successfully</p>}
+        {isSubmited && (
+          <p className="text-green-700 text-center">Otp sent successfully</p>
+        )}
 
-        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form
+          className="space-y-5"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email
             </label>
             <input
