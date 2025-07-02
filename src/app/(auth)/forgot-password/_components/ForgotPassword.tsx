@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { schema } from "./schema";
+import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
-  const [isSubmited, setIsSubmited] = useState(false);
 
   const {
     register,
@@ -19,18 +19,13 @@ const ForgotPassword = () => {
 
   const onSubmit = (data: { email: string }) => {
     console.log("Sending OTP to:", data.email);
-    setIsSubmited(true);
+    toast.success("OTP sent successfully");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Forgot Password</h1>
-
-        {/* Success message (placeholder) */}
-        {isSubmited && (
-          <p className="text-green-700 text-center">Otp sent successfully</p>
-        )}
 
         <form
           className="space-y-5"

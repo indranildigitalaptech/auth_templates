@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const OtpVerification = () => {
   const inputsRef = useRef<HTMLInputElement[]>([]);
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [error, setError] = useState<string>("");
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
@@ -34,7 +34,7 @@ const OtpVerification = () => {
     } else {
       setError("");
       console.log("OTP Submitted:", fullOtp);
-      setIsSubmitted(true);
+      toast.success("OTP Verified Successfully!");
     }
   };
 
@@ -42,8 +42,6 @@ const OtpVerification = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg text-center">
         <h1 className="text-2xl font-bold mb-2">OTP Verification</h1>
-
-        {isSubmitted && (<p className="text-green-600">Otp Submitted successful</p>)}
 
         {error && <p className="text-red-500 my-2 text-sm">{error}</p>}
 

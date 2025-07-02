@@ -6,11 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { schema } from "./schema";
 import { InputField } from "./InputFields";
+import { toast } from "react-hot-toast";
 
 const Registration = () => {
   const [countryFlag, setCountryFlag] = useState("/assets/uk_flag.png");
   const [countryName, setCountryName] = useState("UK");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const {
     register,
@@ -34,7 +34,7 @@ const Registration = () => {
 
   const onSubmit = (data: any) => {
     console.log("Form submitted", {...data, countryName});
-    setIsSubmitted(true);
+    toast.success("Registration successful!");
   };
 
   return (
@@ -43,9 +43,6 @@ const Registration = () => {
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Registration
         </h1>
-
-        {/* Success or Error Message */}
-        {isSubmitted && (<p className="text-green-600 text-center">Successful Submit</p>)}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* First Name */}

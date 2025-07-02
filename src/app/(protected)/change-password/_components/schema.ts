@@ -21,9 +21,9 @@ export const schema = yup.object().shape({
       (val) => /[@$!%*#?&^]/.test(val || '')
     )
     .test(
-      "no-spaces",
-      "Password must not contain spaces",
-      (value) => !/\s/.test(value || "")
+      'no-spaces',
+      'Password must not contain spaces',
+      (val) => !/\s/.test(val || '')
     ),
 
   newPassword: yup
@@ -46,9 +46,16 @@ export const schema = yup.object().shape({
       (val) => /[@$!%*#?&^]/.test(val || '')
     )
     .test(
-      "no-spaces",
-      "Password must not contain spaces",
-      (value) => !/\s/.test(value || "")
+      'no-spaces',
+      'Password must not contain spaces',
+      (val) => !/\s/.test(val || '')
+    )
+    .test(
+      'not-same-as-current',
+      'New password must be different from current password',
+      function (val) {
+        return val !== this.parent.currentPassword;
+      }
     ),
 
   confirmPassword: yup

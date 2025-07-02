@@ -1,10 +1,10 @@
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
+import { toast } from "react-hot-toast";
 
 const ChangePassword = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -17,7 +17,7 @@ const ChangePassword = () => {
 
   const onSubmit = (data: any) => {
     console.log("Password change submitted:", data);
-    setIsSubmitting(true);
+    toast.success("Password changed successfully!");
   };
 
   return (
@@ -25,11 +25,6 @@ const ChangePassword = () => {
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Change Password</h1>
 
-        {isSubmitting && (
-          <p className="text-green-600 text-center my-2">
-            Password change successful
-          </p>
-        )}
 
         <form
           onSubmit={handleSubmit(onSubmit)}

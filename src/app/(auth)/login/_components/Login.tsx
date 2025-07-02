@@ -6,11 +6,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isSubmitted, setSubmitted] = useState(false);
 
   const {
     register,
@@ -22,21 +22,14 @@ const Login = () => {
   });
 
   const onSubmit = (data: any) => {
-    setSubmitted(true);
     console.log("Login Data", data);
+    toast.success("Login successful!");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
-
-        {/* Success message placeholder */}
-        {isSubmitted && (
-          <p className="text-center text-green-700 my-2">
-            Login Successful redirecting to home page...
-          </p>
-        )}
 
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}

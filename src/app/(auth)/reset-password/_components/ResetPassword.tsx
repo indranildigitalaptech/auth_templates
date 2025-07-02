@@ -4,9 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema"; 
+import { toast } from "react-hot-toast";  
 
 const ResetPassword = () => {
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   const {
     register,
@@ -19,7 +19,7 @@ const ResetPassword = () => {
 
   const onSubmit = (data: { password: string; cnfpassword: string }) => {
     console.log("Reset data:", data);
-    setIsSubmitted(true);
+    toast.success("Password reset successfully!");
   };
 
   return (
@@ -27,7 +27,6 @@ const ResetPassword = () => {
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h1 className="text-2xl font-bold text-center mb-6">Reset Password</h1>
 
-        {isSubmitted && <p className="text-center text-green-700 my-2">Reset Password Successful</p>}
 
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* New Password */}
