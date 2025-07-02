@@ -1,12 +1,32 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
 const OtpVerification = () => {
   const inputsRef = useRef<HTMLInputElement[]>([]);
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [error, setError] = useState<string>("");
+
+  const [timer, setTimer] = useState<number>(30);
+  const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
+
+  // Countdown effect
+  useEffect(() => {
+    let countdown: NodeJS.Timeout;
+
+    if (isResendDisabled && timer > 0) {
+      countdown = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+
+    if (timer === 0) {
+      setIsResendDisabled(false);
+    }
+
+    return () => clearInterval(countdown);
+  }, [timer, isResendDisabled]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
@@ -35,6 +55,15 @@ const OtpVerification = () => {
       setError("");
       console.log("OTP Submitted:", fullOtp);
       toast.success("OTP Verified Successfully!");
+    }
+  };
+
+  const handleResend = () => {
+    if (!isResendDisabled) {
+      setTimer(30);
+      setIsResendDisabled(true);
+      toast.success("OTP resent successfully!");
+      // Add OTP resend API call here
     }
   };
 
@@ -69,12 +98,18 @@ const OtpVerification = () => {
           ))}
         </div>
 
+        {/* Resend Button with Timer */}
         <div className="flex justify-end mb-4">
-          <button className="text-sm text-blue-600 hover:underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ">
-            Resend OTP
+          <button
+            onClick={handleResend}
+            disabled={isResendDisabled}
+            className="text-sm text-blue-600 hover:underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isResendDisabled ? `Resend OTP in ${timer}s` : "Resend OTP"}
           </button>
         </div>
 
+        {/* Submit Button */}
         <button
           type="button"
           onClick={handleSubmit}
