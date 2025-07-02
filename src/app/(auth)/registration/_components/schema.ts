@@ -3,35 +3,43 @@ import * as yup from "yup";
 export const schema = yup.object().shape({
   fname: yup
     .string()
-    .required("Please enter your first name"),
+    .required("First name is required"),
 
   lname: yup
     .string()
-    .required("Please enter your last name"),
+    .required("Last name is required"),
 
   email: yup
     .string()
+    .required("Email address is required")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Invalid email format"
-    )
-    .required("Email address is required"),
+      "Enter a valid email address"
+    ),
 
   mobile: yup
     .string()
-    .matches(/^0\d+$/, "Mobile number must start with 0 and contain only digits")
-    .required("Please enter your mobile number"),
+    .required("Mobile number is required")
+    .matches(/^0\d+$/, "Mobile number must start with 0 and contain only digits"),
 
   password: yup
     .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,}$/,
-      "Password must be at least 8 characters and include a letter, a number, and a special character"
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .test("has-letter", "Password must include at least one letter", (val) =>
+      /[A-Za-z]/.test(val || "")
     )
-    .required("Please create a password"),
+    .test("has-number", "Password must include at least one number", (val) =>
+      /\d/.test(val || "")
+    )
+    .test(
+      "has-special",
+      "Password must include at least one special character",
+      (val) => /[@$!%*#?&^]/.test(val || "")
+    ),
 
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password")], "Passwords do not match")
-    .required("Please confirm your password"),
+    .required("Please confirm your password")
+    .oneOf([yup.ref("password")], "Passwords do not match"),
 });

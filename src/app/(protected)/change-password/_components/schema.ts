@@ -1,22 +1,48 @@
 import * as yup from 'yup';
 
 export const schema = yup.object().shape({
-    currentPassword: yup
-        .string()
-        .matches(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,}$/,
-            'Current password must include letters, numbers, and special characters'
-        )
-        .required('Current password is required'),
-    newPassword: yup
-        .string()
-        .matches(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,}$/,
-            'New password must include letters, numbers, and special characters'
-        )
-        .required('New password is required'),
-    confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('newPassword')], 'Passwords do not match')
-        .required('Confirm password is required'),
+  currentPassword: yup
+    .string()
+    .required('Current password is required')
+    .min(8, 'Current password must be at least 8 characters long')
+    .test(
+      'has-letter',
+      'Current password must include at least one letter (A-Z or a-z)',
+      (val) => /[A-Za-z]/.test(val || '')
+    )
+    .test(
+      'has-number',
+      'Current password must include at least one number (0-9)',
+      (val) => /\d/.test(val || '')
+    )
+    .test(
+      'has-special',
+      'Current password must include at least one special character (@$!%*#?&^)',
+      (val) => /[@$!%*#?&^]/.test(val || '')
+    ),
+
+  newPassword: yup
+    .string()
+    .required('New password is required')
+    .min(8, 'New password must be at least 8 characters long')
+    .test(
+      'has-letter',
+      'New password must include at least one letter (A-Z or a-z)',
+      (val) => /[A-Za-z]/.test(val || '')
+    )
+    .test(
+      'has-number',
+      'New password must include at least one number (0-9)',
+      (val) => /\d/.test(val || '')
+    )
+    .test(
+      'has-special',
+      'New password must include at least one special character (@$!%*#?&^)',
+      (val) => /[@$!%*#?&^]/.test(val || '')
+    ),
+
+  confirmPassword: yup
+    .string()
+    .required('Confirm password is required')
+    .oneOf([yup.ref('newPassword')], 'Passwords do not match'),
 });
