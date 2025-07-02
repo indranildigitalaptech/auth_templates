@@ -3,20 +3,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { UserCircle } from "lucide-react";
-
-// Validation schema
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  mobile: yup
-    .string()
-    .matches(/^0\d{9,}$/, "Mobile must start with 0 and be at least 10 digits")
-    .required("Mobile is required"),
-});
+import { schema } from "./useSchema";
 
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +36,6 @@ const UserProfile = () => {
   return (
     <div className="bg-white rounded-xl shadow-md p-6 md:p-8 max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row items-center gap-6">
-
         {/* Profile Icon */}
         <div className="w-full md:w-1/2 flex justify-center">
           <div className="flex flex-col items-center gap-2 text-blue-600">

@@ -2,39 +2,31 @@
 
 import React, { useState } from "react";
 import { ShieldCheck } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./kycSchema"; 
+
 
 const KycComponent = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    dob: "",
-    address1: "",
-    address2: "",
-    city: "",
-    country: "",
-    postalCode: "",
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = () => {
-    console.log("KYC Submitted:", formData);
+  const onSubmit = (data: any) => {
+    console.log("KYC Submitted:", data);
     setIsEditing(false);
   };
 
   const handleCancel = () => {
-    setFormData({
-      dob: "",
-      address1: "",
-      address2: "",
-      city: "",
-      country: "",
-      postalCode: "",
-    });
+    reset();
     setIsEditing(false);
   };
 
@@ -61,51 +53,41 @@ const KycComponent = () => {
             </button>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="block text-sm mb-1">Date of Birth</label>
               <input
                 type="date"
-                name="dob"
-                value={formData.dob}
-                onChange={handleChange}
+                {...register("dob")}
                 disabled={!isEditing}
                 className={`w-full px-3 py-2 border rounded text-sm ${
-                  isEditing
-                    ? "focus:outline-blue-500"
-                    : "bg-gray-100 text-gray-600"
+                  isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                 }`}
               />
+              {errors.dob && <p className="text-xs text-red-500">{errors.dob.message}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">Address Line 1</label>
               <textarea
-                name="address1"
-                value={formData.address1}
-                onChange={handleChange}
-                disabled={!isEditing}
                 rows={2}
+                {...register("address1")}
+                disabled={!isEditing}
                 className={`w-full px-3 py-2 border rounded text-sm ${
-                  isEditing
-                    ? "focus:outline-blue-500"
-                    : "bg-gray-100 text-gray-600"
+                  isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                 }`}
               />
+              {errors.address1 && <p className="text-xs text-red-500">{errors.address1.message}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">Address Line 2</label>
               <textarea
-                name="address2"
-                value={formData.address2}
-                onChange={handleChange}
-                disabled={!isEditing}
                 rows={2}
+                {...register("address2")}
+                disabled={!isEditing}
                 className={`w-full px-3 py-2 border rounded text-sm ${
-                  isEditing
-                    ? "focus:outline-blue-500"
-                    : "bg-gray-100 text-gray-600"
+                  isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                 }`}
               />
             </div>
@@ -115,31 +97,25 @@ const KycComponent = () => {
                 <label className="block text-sm mb-1">City</label>
                 <input
                   type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
+                  {...register("city")}
                   disabled={!isEditing}
                   className={`w-full px-3 py-2 border rounded text-sm ${
-                    isEditing
-                      ? "focus:outline-blue-500"
-                      : "bg-gray-100 text-gray-600"
+                    isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                   }`}
                 />
+                {errors.city && <p className="text-xs text-red-500">{errors.city.message}</p>}
               </div>
               <div>
                 <label className="block text-sm mb-1">Country</label>
                 <input
                   type="text"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
+                  {...register("country")}
                   disabled={!isEditing}
                   className={`w-full px-3 py-2 border rounded text-sm ${
-                    isEditing
-                      ? "focus:outline-blue-500"
-                      : "bg-gray-100 text-gray-600"
+                    isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                   }`}
                 />
+                {errors.country && <p className="text-xs text-red-500">{errors.country.message}</p>}
               </div>
             </div>
 
@@ -147,16 +123,15 @@ const KycComponent = () => {
               <label className="block text-sm mb-1">Postal Code</label>
               <input
                 type="text"
-                name="postalCode"
-                value={formData.postalCode}
-                onChange={handleChange}
+                {...register("postalCode")}
                 disabled={!isEditing}
                 className={`w-full px-3 py-2 border rounded text-sm ${
-                  isEditing
-                    ? "focus:outline-blue-500"
-                    : "bg-gray-100 text-gray-600"
+                  isEditing ? "focus:outline-blue-500" : "bg-gray-100 text-gray-600"
                 }`}
               />
+              {errors.postalCode && (
+                <p className="text-xs text-red-500">{errors.postalCode.message}</p>
+              )}
             </div>
 
             {isEditing && (
@@ -169,9 +144,9 @@ const KycComponent = () => {
                   Cancel
                 </button>
                 <button
-                  type="button"
-                  onClick={handleSave}
-                  className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                  type="submit"
+                  disabled={!isValid}
+                  className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
                 >
                   Save
                 </button>
