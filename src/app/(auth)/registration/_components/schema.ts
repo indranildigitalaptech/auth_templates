@@ -11,7 +11,10 @@ export const schema = yup.object().shape({
 
   email: yup
     .string()
-    .email("Please enter a valid email address")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email format"
+    )
     .required("Email address is required"),
 
   mobile: yup
