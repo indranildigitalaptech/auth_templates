@@ -74,6 +74,7 @@ const Login = () => {
                 src={
                   passwordVisible ? "/assets/visible.png" : "/assets/hide.png"
                 }
+                data-testid="toggle-password"
                 onClick={() => setPasswordVisible(!passwordVisible)}
                 alt="Show Password"
                 width={24}
