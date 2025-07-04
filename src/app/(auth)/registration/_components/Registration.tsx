@@ -22,18 +22,18 @@ const Registration = () => {
   });
 
   const flagHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    if (selectedValue === "UK") {
-      setCountryName("UK");
-      setCountryFlag("/assets/uk_flag.png");
-    } else if (selectedValue === "ZIM") {
-      setCountryName("ZIM");
-      setCountryFlag("/assets/zim_flag.png");
-    }
+    const selected = e.target.value;
+    const flags: Record<string, string> = {
+      UK: "/assets/uk_flag.png",
+      ZIM: "/assets/zim_flag.png",
+    };
+    setCountryName(selected);
+    setCountryFlag(flags[selected]);
   };
 
   const onSubmit = (data: any) => {
-    console.log("Form submitted", {...data, countryName});
+    const payload = { ...data, countryName };
+    console.log("Form submitted", payload);
     toast.success("Registration successful!");
   };
 
@@ -49,6 +49,7 @@ const Registration = () => {
           <InputField
             label="First Name"
             name="fname"
+            testId="fname"
             register={register}
             error={errors.fname}
             placeholder="First Name"
@@ -58,6 +59,7 @@ const Registration = () => {
           <InputField
             label="Last Name"
             name="lname"
+            testId="lname"
             register={register}
             error={errors.lname}
             placeholder="Last Name"
@@ -67,6 +69,7 @@ const Registration = () => {
           <InputField
             label="Email Address"
             name="email"
+            testId="email"
             register={register}
             error={errors.email}
             placeholder="example@gmail.com"
@@ -78,37 +81,39 @@ const Registration = () => {
             <div className="flex flex-col sm:flex-row items-start gap-4 w-full">
               {/* Country Code Dropdown */}
               <div className="w-3xs sm:max-w-[200px]">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="country-code"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Country Code
                 </label>
                 <div className="flex items-center gap-2">
-                  <div className="shrink-0">
-                    <Image
-                      src={countryFlag}
-                      alt="Country Flag"
-                      width={30}
-                      height={20}
-                      className="rounded object-cover"
-                    />
-                  </div>
+                  <Image
+                    src={countryFlag}
+                    alt="Country Flag"
+                    width={30}
+                    height={20}
+                    className="rounded object-cover"
+                  />
                   <select
+                    id="country-code"
+                    data-testid="country-select"
                     onChange={flagHandler}
-                    defaultValue={"UK"}
+                    defaultValue="UK"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="UK">
-                      UK (+44)
-                    </option>
+                    <option value="UK">UK (+44)</option>
                     <option value="ZIM">ZIM (+263)</option>
                   </select>
                 </div>
               </div>
 
-              {/* Mobile Number Field */}
+              {/* Mobile Number */}
               <div className="w-full">
                 <InputField
                   label="Mobile Number"
                   name="mobile"
+                  testId="mobile"
                   register={register}
                   error={errors.mobile}
                   placeholder="Mobile Number"
@@ -122,6 +127,7 @@ const Registration = () => {
           <InputField
             label="Password"
             name="password"
+            testId="password"
             register={register}
             error={errors.password}
             placeholder="Password"
@@ -132,15 +138,17 @@ const Registration = () => {
           <InputField
             label="Confirm Password"
             name="confirmPassword"
+            testId="confirmPassword"
             register={register}
             error={errors.confirmPassword}
             placeholder="Confirm Password"
             type="password"
           />
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
+            data-testid="submit-button"
             disabled={!isValid}
             className="w-full bg-blue-600 text-white font-semibold py-2 px-4 cursor-pointer rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >

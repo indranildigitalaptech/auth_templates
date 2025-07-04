@@ -42,6 +42,7 @@ const Login = () => {
             </label>
             <input
               type="email"
+              data-testid="email"
               {...register("email")}
               placeholder="example@gmail.com"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -63,6 +64,7 @@ const Login = () => {
             </label>
             <div className="relative">
               <input
+                data-testid="password"
                 type={passwordVisible ? "text" : "password"}
                 {...register("password")}
                 placeholder="Password"
@@ -89,6 +91,7 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
+            data-testid="login-button"
             disabled={!isValid}
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
